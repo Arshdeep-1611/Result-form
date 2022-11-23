@@ -1,0 +1,592 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+   
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Lora&family=Yeseva+One&display=swap");
+      html{
+        background: rgb(34,195,115);
+background: linear-gradient(0deg, rgba(34,195,115,1) 0%, rgba(45,224,253,1) 100%);
+      }
+      * {
+        --hibiscus-love: #fc465c;
+        --fine-ii: #f9b198;
+        --afl: #fac8af;
+        --mexican-sky: #cfdddd;
+        --brasillia-peach: #facb85;
+        --free: #33032d;
+        --captured: #2b2120;
+
+        --primary-color: var(--brasillia-peach);
+        --secondary-color: var(--hibiscus-love);
+        --tertiary-color: var(--fine-ii);
+        --quadrary-color: var(--afl);
+        --bg-color: var(--mexican-sky);
+        --text-color: var(--free);
+        --header-color: var(--captured);
+        --error-color: var(--hibiscus-love);
+        --success-color: #73d12e;
+
+        box-sizing: border-box;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-family: "Yeseva One", Georgia, cursive;
+        color: var(--header-color);
+      }
+
+      body {
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        /* background-color: var(--bg-color); */
+        color: var(--free);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: column nowrap;
+        min-height: 100vh;
+      }
+
+      .containerr {
+        width: 800px;
+        border-radius: 0.6em;
+        padding: 20px;
+        padding-bottom: 20px;
+        background-color: #05bca3;
+        box-shadow: 20px 20px 60px #1b1d1d, -20px -20px 60px #7d7b7b;
+        margin: 20px auto;
+      }
+
+      .form {
+        padding: 5px 10px;
+        padding-bottom: 40px;
+      }
+
+      .form h2 {
+        text-align: center;
+        margin: 0 0 20px;
+      }
+
+      .form-controll {
+        margin-bottom: 5px;
+       
+        position: relative;
+      }
+
+      label {
+        color: var(--text-color);
+        display: block;
+        margin-bottom: -5px;
+      }
+
+      .marks {
+        color: var(--text-color);
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input {
+        border-radius: 6px;
+        background: #05bca3;
+        box-shadow: inset 3px 3px 7px #141414, inset -3px -3px 7px #034f45;
+        min-height: 2.618em;
+        
+        border: #034f45 solid 2px;
+        display: block;
+        width: 60%;
+        font-size: 14px;
+        padding: 5px;
+      }
+      input :focus{
+        border-color: black;
+        text-decoration: none;
+      }
+
+      .marks {
+        display: inline;
+        width: 20%;
+      }
+
+      .form-controll input:focus {
+        outline: 0;
+        border-color: #e9f0ef;
+      }
+
+      .form-controll.success input {
+        border-color: var(--success-color);
+      }
+
+      .form-controll.error input {
+        border-color: var(--error-color);
+      }
+
+      .form-controll small {
+        color: var(--error-color);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        visibility: hidden;
+      }
+
+      .form-controll.error small {
+        visibility: visible;
+      }
+
+      .form button {
+        cursor: pointer;
+        background: #74f1bd;
+        box-shadow: 4px 4px 8px #090b0b, 4px 4px 8px #05bca3;
+        border: 1px solid #ec263c66;
+        color: #fff;
+        font-size: 16px;
+        padding: 0.618em 1.2em;
+        border-radius: 0.4em;
+        font-family: 'Times New Roman', Times, serif;
+        display: block;
+        /* margin-top: 1em; */
+        margin-top: 5px;
+        width: 40%;
+        margin-left: 25%;
+      }
+
+      .form button:active,
+      .form button:focus {
+        outline: 0;
+        background-color: #36fca9;
+      }
+
+      /* msgbox */  
+      
+
+      .msg-icn {
+        display: inline-block;
+        position: absolute;
+       z-index: 4;
+       margin-bottom: -580px;
+        padding:  10px 20px;
+        color: black;
+        background-color: #05bca3;
+        width: 100%;
+        text-align: center;
+        max-width: 300px;
+        min-width: 70px;
+        min-height: 38px;
+        
+      }
+      .msg-icn:before {
+        content: "";
+        position: absolute;
+        visibility: hidden;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        /* border: 1px solid #e5a002; */
+        border-radius: 2px;
+        box-sizing: border-box;
+        /* clip-path: polygon(0% 105%, 0% 0%, 105% 0%, 105% 105%, 43px 105%, 43px 80%, 21px 80%, 21px 105%); */
+      }
+      .msg-icn:after {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 25px;
+        height: 20px;
+        background: #05bca3;
+        top: calc(100% - 1px);
+        left: 20px;
+        box-sizing: border-box;
+        /* clip-path: polygon(0 0, 0% 100%, 100% 0%, calc(100% - 2px) 0, 1px calc(100% - 2px), 1px 0); */
+      }
+
+      /* table */
+      table {
+        width: 100%;
+        max-width: 960px;
+        margin: 0 auto;
+        text-align: center;
+        border-collapse: separate;
+        border-spacing: 0;
+        }
+
+        tbody tr:nth-child(odd) {
+        background-color: #F1C27D;
+        }
+
+        th, td { /* cell */
+        padding: 0.75rem;
+        font-size: 0.9375rem;
+        
+        }
+        tr{
+          margin-bottom: 30px;
+        }
+        th { /* header cell */
+        font-weight: 700;
+        text-align: center;
+        color: #272838;
+        border-bottom: 2px solid #EB9486;
+
+        position: sticky;
+        top: 0;
+        background-color: #F9F8F8;
+        }
+
+        td { /* body cell */
+        color: #7E7F9A;
+        }
+
+        .go-back{
+          display: none;
+        }
+        .subinput input:focus{
+          outline: 0;
+          border-color: #e9f0ef;
+        }
+
+    </style>
+    
+  </head>
+  <body>
+    <button class="go-back">⬅️goback</button>
+    <span class="msg-icn" id="sss"> </span>
+    <div class="containerr">
+      <form id="form" class="form" >
+        <h2>REPORT CARD</h2>
+
+        <!-- id -->
+        <div class="form-controll">
+          <label for="id" style="margin-top: 30px; font-size: larger;">ID</label>
+          <input name="id" type="text" id="id" placeholder="Enter id/uid"  style="width: 75%;margin-left:15%; margin-top: -28px;">
+         
+        </div>
+
+        <!-- name -->
+        <div class="form-controll">
+          <label for="name" style="margin-top: 30px; font-size: larger;">Name</label>
+          <input name="name" type="text" id="name" placeholder="Enter name" style="width: 75%;margin-left:15%; margin-top: -28px;">
+         
+        </div>
+
+        <!-- address -->
+        <div class="form-controll">
+          <label for="address" style="margin-top: 30px; font-size: larger;">Address</label>
+          <!-- <textarea id="address" placeholder="Enter address" rows="3"></textarea> -->
+          <input
+            name="address"
+            type="textarea"
+            id="address"
+            placeholder="Enter address"
+            style="width: 75%;margin-left:15%; margin-top: -28px;">
+         
+        </div>
+        <label style="margin-top: 10px; font-size: larger;margin-bottom: 30px;">SUBJECTS :-</label>
+       <div class="subinput">
+         
+            <label style="margin-bottom: -5px;">MATHS</label>
+            <input
+              name="m1"
+              type="text"
+              id="m1"
+              class="marks"
+              placeholder="Maths"
+              style="width: 75%;margin-left:15%; margin-top: -30px; margin-bottom: 30px;">
+            <label style="margin-bottom: -5px;">ENGLISH</label>
+            <input
+              name="m2"
+              type="text"
+              id="m2"
+              class="marks"
+              placeholder="English"
+              style="width: 75%;margin-left:15%; margin-top: -30px;margin-bottom: 30px;">
+            <label style="margin-bottom: -5px;">PHYSICS</label>
+            <input
+              name="m3"
+              type="text"
+              id="m3"
+              class="marks"
+              placeholder="Physics"
+              style="width: 75%;margin-left:15%; margin-top: -30px;margin-bottom: 30px;">
+            <label style="margin-bottom: -5px;">SCIENCE</label>
+            <input
+              name="m4"
+              type="text"
+              id="m4"
+              class="marks"
+              placeholder="Science"
+              style="width: 75%;margin-left:15%; margin-top: -30px;margin-bottom: 30px;">
+            <label style="margin-bottom: -5px;">BIOLOGY</label>
+            <input
+              name="m5"
+              type="text"
+              id="m5"
+              class="marks"
+              placeholder="Biology"
+              min="1"
+              max="100"
+              style="width: 75%;margin-left:15%; margin-top: -30px;margin-bottom: 30px;">
+          
+        </div>
+        <button type="submit" id="btn" style="margin-left: 10%;">Submit</button>
+        <button type="button" id="show-details" style="margin-left: 55%;margin-top: -40px;">Show All</button>
+      </form>
+      
+    </div>
+
+    <script>
+     
+      function generateModal(msgg){
+        const typSpd = 70; 
+        const waitTime = 500;
+
+        const text = [msgg]
+
+        var mi = 0;
+
+        function writeString(e, str, i) {
+          e.innerHTML = e.innerHTML + str[i];
+          
+          if (e.innerHTML.length == str.length && mi != text.length)
+            setTimeout(slowlyDelete, waitTime, e);
+        }
+
+        function deleteString(e) {
+          e.innerHTML = e.innerHTML.substring(0, e.innerHTML.length - 1);
+          
+          if (e.innerHTML.length == 0)
+            slowlyWrite(e, text[mi++]);
+        }
+
+        function slowlyDelete(e) {
+          for (var i = 0; i < e.innerHTML.length; i++) {
+            setTimeout(deleteString, typSpd / 2 * i, e);
+          }
+        }
+
+        function slowlyWrite(e, str) {
+          for (var i = 0; i < str.length; i++) {
+            setTimeout(writeString, typSpd * i, e, str, i);
+          }
+        }
+
+        const msg = document.querySelector(".msg-icn");
+
+        slowlyDelete(msg);
+      }
+
+
+    
+    const form = document.getElementById('form');
+     async function submit(e){
+        e.preventDefault();
+        let formdata = new FormData(form);
+        const plain = Object.fromEntries(formdata.entries())
+        const plainString = JSON.stringify(plain)
+        let response = await fetch('/register',{
+            method : "POST",
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : plainString
+        })
+        const data = await response.json();
+        if(data.msg!=null){
+          generateModal(data.msg);
+        }else{
+          console.log(data);
+          reset();
+          // showParticular(data);
+          // document.querySelector('.go-back').style.display = "block";
+          }
+        // .then(res =>res.json())
+        // .then(data=> addModal(generateModal(data.msg)))
+        // .then(() => results)
+        // .catch(err => console.log(err+"..."))
+
+};
+
+    form.addEventListener('submit', submit)
+
+    const btn = document.getElementById('show-details');
+
+    function showDetails(){
+        window.open('http://127.0.0.1:5500/client/showParticular/showParticular.html','_self')
+    }
+
+    btn.addEventListener('click',showDetails)
+
+    
+    function showParticular(res){
+      let data = res;
+      let tab = 
+                `
+                <table>
+                <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>TOTAL</th>
+                <th>AVERAGE</th>
+                <th>GRADE</th>
+                </tr>`;
+            
+            // Loop to access all rows 
+            // for (let i=0 ;i<data.length;i++) {
+                let r = data;
+                tab += `<tr> 
+                    <td>${r.id} </td>
+                    <td>${r.name}</td>
+                    <td>${r.total}</td> 
+                    <td>${r.avg}</td> 
+                    <td>${r.grade}</td>          
+                </tr>
+              `;
+            // }
+            document.querySelector(".msg-icn").remove();
+            console.log(tab);
+            // console.log(document.querySelector('.containerr').innerHTML)
+            document.querySelector('.containerr').innerHTML = `${tab}`;
+            gobackbtn = document.getElementById("go-back");
+
+    }
+
+    //goo back
+    
+    function changeToHome(){
+      window.open("http://localhost:5000/","_self")
+    }
+    let gobackbtn = document.querySelector('.go-back');
+    gobackbtn.addEventListener('click',changeToHome);
+
+
+    // msg
+        
+    //error msg focus
+
+    // let mark1=document.getElementById('m1').value;
+    // let mark2=document.getElementById('m2').value;
+    // let mark3=document.getElementById('m3').value;
+    // let mark4=document.getElementById('m4').value;
+    // let mark5=document.getElementById('m5').value;
+    
+    // let data1=document.getElementById('id').value;
+    // let data2=document.getElementById('name').value;
+    // let data3=document.getElementById('address').value;
+
+    // function click(){
+    //   console.log("YES");
+    //   if(data1==null|| data2==null||data3==null||mark1==null || mark2==null || mark3==null || mark4==null || mark5==null){
+    //   document.getElementById('sss').focus;
+    // }
+    // }
+   
+    
+    </script>
+
+    <!--
+     <script>
+        const form = document.getElementById('form');
+        const username = document.getElementById('username');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        const password2 = document.getElementById('password2');
+
+        
+        //Show input error message
+        function showError(input, message) {
+        //gets the parent div
+        const formControl = input.parentElement;
+        //applies error class and reapplies form-controll class
+        formControl.className = 'form-controll error';
+        //finds the small tag within this div
+        const small = formControl.querySelector('small');
+        //inserts the message parameter into the small tag
+        small.innerText = message;
+        }
+
+        //Show success outline
+        function showSuccess(input) {
+        //gets the parent div
+        const formControl = input.parentElement;
+        //applies success class and reapplies form-controll class
+        formControl.className = 'form-controll success';
+        }
+
+        //Check to see if email is valid
+        function checkEmail(input) {
+        const regExEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+        //if (regular expression representing a valid email, then true else false)
+        if (regExEmail.test(input.value.trim())) {
+            showSuccess(input);
+        } else {
+            showError(input, 'Not a real email bub');
+        }
+        }
+
+        //check required fields
+        function checkRequired(inputArr) {
+        //iterate through each slot in inputArr
+        inputArr.forEach(function(input) {
+            //if not null, show success
+            if (input.value.trim() === '') {
+            console.log(input.id);
+            showError(input, `${getFieldName(input)} is required bub`);
+            } else {
+            showSuccess(input);
+            }
+        });
+        }
+
+        //check whether an input is between a min and max length
+        function checkLength(input, min, max) {
+        if (input.value.length < min) {
+            showError(
+            input,
+            `${getFieldName(input)}'s gotta be over ${min} characters bub`
+            );
+        } else if (input.value.length > max) {
+            showError(
+            input,
+            `${getFieldName(input)}'s gotta be under ${max} characters bub`
+            );
+        }
+        }
+
+        // Check if the passwords match
+        function checkPasswords(input1, input2) {
+        if (input1.value !== input2.value) {
+            showError(input2, 'Those dont match bub');
+        } else {
+            showSuccess(input);
+        }
+        }
+
+        //Get the fieldname
+        //finds first letter and uppercases it, then slices off the old first letter and concatenates
+        function getFieldName(input) {
+        return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+        }
+
+        //Event listeners
+        form.addEventListener('submit', function(e) {
+        // use preventDefault to keep the page from refreshing everytime you hit submit
+        e.preventDefault();
+
+        checkRequired([username, email, password, password2]);
+        checkLength(username, 3, 15);
+        checkLength(password, 6, 25);
+        checkEmail(email);
+        checkPasswords(password, password2);
+        });
+
+    </script> -->
+    
+    
+  </body>
+</html>

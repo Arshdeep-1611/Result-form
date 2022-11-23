@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora&family=Yeseva+One&display=swap');
+
+        html{
+        background: rgb(34,195,115);
+background: linear-gradient(0deg, rgba(34,195,115,1) 0%, rgba(45,224,253,1) 100%);
+      }
+        * {
+        --hibiscus-love: #fc465c;
+        --fine-ii: #f9b198;
+        --afl: #fac8af;
+        --mexican-sky: #cfdddd;
+        --brasillia-peach: #facb85;
+        --free: #33032d;
+        --captured: #2b2120;
+
+        --primary-color: var(--brasillia-peach);
+        --secondary-color: var(--hibiscus-love);
+        --tertiary-color: var(--fine-ii);
+        --quadrary-color: var(--afl);
+        --bg-color: var(--mexican-sky);
+        --text-color: var(--free);
+        --header-color: var(--captured);
+        --error-color: var(--hibiscus-love);
+        --success-color: #73d12e;
+
+        box-sizing: border-box;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: var(--header-color);
+        }
+
+        body {
+        font-family: 'Lora', 'Times New Roman', serif;
+        
+        color: var(--free);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: column nowrap;
+        min-height: 100vh;
+        }
+
+        .container {
+        width: 800px;
+        border-radius: 0.6em;
+        padding: 20px;
+        background-color: #05bca3;
+        box-shadow: 20px 20px 60px #1b1d1d, -20px -20px 60px #7d7b7b;
+        margin: 20px auto;
+        padding-bottom: 30px;
+        }
+
+
+
+        table {
+        width: 100%;
+        max-width: 960px;
+        margin: 0 auto;
+        text-align: center;
+        border-collapse: separate;
+        border-spacing: 0;
+        }
+
+        
+
+        th, td { /* cell */
+        padding: 10px;
+        margin: 0;
+        font-size: 0.9375rem;
+        
+        }
+
+        th { /* header cell */
+        font-weight: 700;
+        text-align: center;
+        color: #272838;
+        border-bottom: 2px solid #EB9486;
+
+        position: sticky;
+        top: 0;
+        background-color: greenyellow;
+        }
+
+        
+        .go-back{
+            display: flex;
+            z-index: 4;
+            margin-top: 40px;
+            background-color: greenyellow;
+            
+            margin-left: 20px;
+        }
+
+
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" 
+                role="status" id="loading">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <h1 style="text-align:center">Students Log</h1>
+        <!-- table for showing data -->
+        <table id="employees"></table>
+        <button class="go-back">Back</button>
+    </div>
+
+    <script>
+        const api_url = "http://localhost:5000/showall"
+  
+        // Defining async function
+        async function getapi(url) {
+            
+            // Storing response
+            const response = await fetch(url);
+            
+            // Storing data in form of JSON
+            var data = await response.json();
+            console.log(data);
+            if (response) {
+                hideloader();
+            }
+            show(data);
+        }
+        // Calling that async function
+        getapi(api_url);
+        
+        // Function to hide the loader
+        function hideloader() {
+            document.getElementById('loading').style.display = 'none';
+        }
+        // Function to define innerHTML for HTML table
+        function show(data) {
+            if(data.length>0){
+            let tab = 
+                `<tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>TOTAL</th>
+                <th>AVERAGE</th>
+                <th>GRADE</th>
+                </tr>`;
+            
+            // Loop to access all rows 
+            for (let i=0 ;i<data.length;i++) {
+                let r = data[i];
+                tab += `<tr> 
+                    <td>${r.id} </td>
+                    <td>${r.name}</td>
+                    <td>${r.total}</td> 
+                    <td>${r.avg}</td> 
+                    <td>${r.grade}</td>          
+                </tr>`;
+            }
+            // Setting innerHTML as tab variable
+                document.getElementById("employees").innerHTML = tab;
+            }else{
+
+                document.getElementById("employees").innerHTML = `<h1>No data found</h1>`
+            }
+        }
+
+        function goToHome(){
+            window.open("http://localhost:5000/","_self");
+        }
+
+        let btn = document.querySelector('.go-back');
+        btn.addEventListener('click',goToHome)
+
+    </script>
+</body>
+</html>
